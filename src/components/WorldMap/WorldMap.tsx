@@ -16,6 +16,11 @@ const TILE_ATTRIBUTION =
 // and an empty node list can't produce invalid bounds.
 const WORLD_BOUNDS = L.latLngBounds([-60, -180], [85, 180]);
 
+// The edges of the map tiles. Keeping the view inside them avoids a grey band where there are no
+// tiles (above latitude 85): when the container is taller than the world bounds, the extra
+// space is filled with more map at the bottom instead.
+const TILE_EDGES = L.latLngBounds([-85.05, -180], [85.05, 180]);
+
 const PIN_SIZE = { default: 12, highlighted: 15, dimmed: 12 } satisfies Record<PinState, number>;
 
 // Preflight is off, so the border style has to be set explicitly
@@ -53,6 +58,10 @@ export function WorldMap({ nodes, selectedCommunityId, visibleCommunityIds }: Wo
     <div className="h-full w-full" data-cy="world-map" role="img">
       <MapContainer
         bounds={WORLD_BOUNDS}
+        maxBounds={TILE_EDGES}
+        // Fractional zoom so the world fits the container width exactly instead of snapping to a
+        // whole zoom level, which can leave the map much smaller than its container
+        zoomSnap={0}
         className="h-full w-full"
         dragging={false}
         scrollWheelZoom={false}
