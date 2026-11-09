@@ -6,7 +6,7 @@ import nichyLogo from '~/assets/logos/nichy.png';
 import parkinsonNLLogo from '~/assets/logos/parkinson-nl.svg';
 import scandLogo from '~/assets/logos/scand.jpg';
 import trr379Logo from '~/assets/logos/trr379.png';
-import type { Community, CommunityNode } from './types';
+import type { Community, CommunityNode, CommunityStats } from './types';
 
 export const COMMUNITIES: Community[] = [
   {
@@ -257,3 +257,28 @@ export const NODES: CommunityNode[] = [
     lng: 5.8372,
   },
 ];
+
+// TODO: replace HARDCODED_STATS and COMMUNITY_STATS with live stats fetched from each
+// community's federation API.
+// Snapshot of the federation API summary stats (Nov 2026). Subjects are total subjects
+// (catalog-level and record-level), not just matching ones.
+const HARDCODED_STATS: Record<string, { subjects: number; datasets: number }> = {
+  neurobagel: { subjects: 114528, datasets: 2052 },
+  'enigma-pd': { subjects: 2151, datasets: 12 },
+  scand: { subjects: 1190, datasets: 7 },
+  asmq: { subjects: 2849, datasets: 5 },
+  npc: { subjects: 691, datasets: 2 },
+};
+
+// Node counts come from NODES so they always match the card's node list and the map pins
+export const COMMUNITY_STATS: Record<string, CommunityStats> = Object.fromEntries(
+  Object.entries(HARDCODED_STATS).map(([communityId, { subjects, datasets }]) => [
+    communityId,
+    {
+      status: 'success',
+      subjects,
+      datasets,
+      nodes: NODES.filter((node) => node.communityId === communityId).length,
+    },
+  ])
+);

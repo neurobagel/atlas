@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { CommunityCard } from '~/components/CommunityCard';
 import { WorldMap } from '~/components/WorldMap';
-import { COMMUNITIES, NODES } from '~/utils/constants';
+import { COMMUNITIES, COMMUNITY_STATS, NODES } from '~/utils/constants';
 
 // filtering to be implemented later, for now every community is visible
 const ALL_COMMUNITY_IDS = COMMUNITIES.map((community) => community.id);
@@ -26,6 +26,7 @@ function App() {
               key={community.id}
               community={community}
               nodes={NODES.filter((node) => node.communityId === community.id)}
+              stats={COMMUNITY_STATS[community.id]}
               isSelected={community.id === selectedCommunityId}
               onSelect={handleSelect}
             />
