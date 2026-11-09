@@ -17,10 +17,6 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    // TODO: remove once the first Vitest unit tests are added.
-    // There are no unit tests yet, and Vitest exits with an error when it finds none,
-    // which would fail the unit job in CI.
-    passWithNoTests: true,
     coverage: {
       provider: 'istanbul',
       reporter: ['json'],
