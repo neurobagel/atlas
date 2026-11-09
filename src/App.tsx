@@ -31,6 +31,9 @@ function App() {
             />
           ))}
         </div>
+        {/* TODO: the map column is taller than the world map is wide, which leaves grey bands above
+            and below the map. Revisit the map height once the summary bar and the other
+            layout pieces are in place. */}
         <div className="h-[480px] lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]" data-cy="map-column">
           <WorldMap
             nodes={NODES}

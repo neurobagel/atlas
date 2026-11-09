@@ -3,7 +3,7 @@ import L from 'leaflet';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { useTheme } from '@mui/material/styles';
 import 'leaflet/dist/leaflet.css';
-import { getPinOffsets, getPinState } from '~/utils/map';
+import { getPinAnchor, getPinOffsets, getPinState } from '~/utils/map';
 import type { PinState } from '~/utils/map';
 import type { CommunityNode } from '~/utils/types';
 
@@ -11,10 +11,16 @@ const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const TILE_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-const FALLBACK_CENTER: [number, number] = [20, 0];
-const FALLBACK_ZOOM = 2;
+// The whole world, without Antarctica and the far north which have no nodes.
+// Fitting to fixed bounds (not to the nodes) keeps the view the same whatever the data is,
+// and an empty node list can't produce invalid bounds.
+const WORLD_BOUNDS = L.latLngBounds([-60, -180], [85, 180]);
 
 const PIN_SIZE = { default: 12, highlighted: 15, dimmed: 12 } satisfies Record<PinState, number>;
+
+// Preflight is off, so the border style has to be set explicitly
+const PIN_CLASSES =
+  'box-border rounded-full border-2 border-solid border-white shadow-[0_1px_3px_rgba(0,0,0,0.4)] data-[state=dimmed]:opacity-30';
 
 interface WorldMapProps {
   nodes: CommunityNode[];
@@ -28,39 +34,25 @@ export function WorldMap({ nodes, selectedCommunityId, visibleCommunityIds }: Wo
 
   const createIcon = (node: CommunityNode, state: PinState) => {
     const size = PIN_SIZE[state];
-    const [dx, dy] = offsets[node.id];
-    const style = [
-      'box-sizing:border-box',
-      `width:${size}px`,
-      `height:${size}px`,
-      'border-radius:50%',
-      `background:${state === 'dimmed' ? theme.palette.grey[700] : theme.palette.primary.main}`,
-      'border:2px solid #fff',
-      'box-shadow:0 1px 3px rgba(0,0,0,0.4)',
-      `opacity:${state === 'dimmed' ? 0.3 : 1}`,
-    ].join(';');
+    // Only the values that depend on the state or the MUI theme are inline;
+    // the rest is Tailwind. Leaflet needs the icon as an HTML string, so React props can't be used.
+    const background = state === 'dimmed' ? theme.palette.grey[700] : theme.palette.primary.main;
+    const style = `width:${size}px;height:${size}px;background:${background}`;
     return L.divIcon({
-      // An empty className replaces Leaflet's default white box icon style
+      // divIcon adds the class "leaflet-div-icon" by default, which gives every marker a white
+      // background and a grey border. An empty className drops it, so only our pin styles apply.
       className: '',
-      html: `<div data-cy="map-pin-${node.id}" data-state="${state}" style="${style}"></div>`,
+      html: `<div data-cy="map-pin-${node.id}" data-state="${state}" class="${PIN_CLASSES}" style="${style}"></div>`,
       iconSize: [size, size],
       // Shifting the anchor moves the pin by a fixed number of pixels at any zoom level
-      iconAnchor: [size / 2 - dx, size / 2 - dy],
+      iconAnchor: getPinAnchor(size, offsets[node.id]),
     });
   };
-
-  const viewProps =
-    nodes.length > 0
-      ? {
-          bounds: L.latLngBounds(nodes.map((node) => [node.lat, node.lng] as [number, number])),
-          boundsOptions: { padding: [32, 32] as [number, number] },
-        }
-      : { center: FALLBACK_CENTER, zoom: FALLBACK_ZOOM };
 
   return (
     <div className="h-full w-full" data-cy="world-map" role="img">
       <MapContainer
-        {...viewProps}
+        bounds={WORLD_BOUNDS}
         className="h-full w-full"
         dragging={false}
         scrollWheelZoom={false}
