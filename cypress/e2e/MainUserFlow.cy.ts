@@ -21,4 +21,22 @@ describe('Main user flow', () => {
     cy.get(card('scand')).click();
     cy.get(card('scand')).should('have.css', 'box-shadow', 'none');
   });
+
+  it("should highlight the selected community's pins on the map and dim the rest", () => {
+    cy.visit('/');
+    const pin = (id: string) => `[data-cy="map-pin-${id}"]`;
+
+    cy.get('[data-cy="community-card-enigma-pd"]').click();
+    ['amsterdam-umc', 'umc-groningen', 'radboud-umc', 'mcgill'].forEach((id) => {
+      cy.get(pin(id)).should('have.attr', 'data-state', 'highlighted');
+    });
+    ['openneuro', 'camh'].forEach((id) => {
+      cy.get(pin(id)).should('have.attr', 'data-state', 'dimmed');
+    });
+
+    cy.get('[data-cy="community-card-enigma-pd"]').click();
+    ['amsterdam-umc', 'openneuro', 'camh'].forEach((id) => {
+      cy.get(pin(id)).should('have.attr', 'data-state', 'default');
+    });
+  });
 });
