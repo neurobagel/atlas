@@ -263,7 +263,7 @@ export const NODES: CommunityNode[] = [
 // Snapshot of the federation API summary stats (Nov 2026). Subjects are total subjects
 // (catalog-level and record-level), not just matching ones.
 const HARDCODED_STATS: Record<string, { subjects: number; datasets: number }> = {
-  neurobagel: { subjects: 61104, datasets: 1103 },
+  neurobagel: { subjects: 114528, datasets: 2052 },
   'enigma-pd': { subjects: 2151, datasets: 12 },
   scand: { subjects: 1190, datasets: 7 },
   asmq: { subjects: 2849, datasets: 5 },
