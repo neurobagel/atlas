@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getPinOffsets, getPinState, PIN_FAN_RADIUS } from '~/utils/map';
+import { getPinAnchor, getPinOffsets, getPinState, PIN_FAN_RADIUS } from '~/utils/map';
 import type { CommunityNode } from '~/utils/types';
 
 const node = (id: string, lat: number, lng: number): CommunityNode => ({
@@ -61,5 +61,18 @@ describe('getPinOffsets', () => {
 
   it('should be deterministic', () => {
     expect(getPinOffsets(nodes)).toEqual(getPinOffsets([...nodes]));
+  });
+});
+
+describe('getPinAnchor', () => {
+  it('should anchor at the icon centre when there is no offset', () => {
+    expect(getPinAnchor(12, [0, 0])).toEqual([6, 6]);
+  });
+
+  it('should move the anchor opposite to the offset so the pin is drawn at the offset', () => {
+    // Pin offset 10px up (dy = -10): the anchor is 10px below the centre, so the pin shifts up
+    expect(getPinAnchor(12, [0, -10])).toEqual([6, 16]);
+    // Pin offset 9px right and 5px down: the anchor moves 9px left and 5px up
+    expect(getPinAnchor(12, [9, 5])).toEqual([-3, 1]);
   });
 });
