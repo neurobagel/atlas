@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import { CommunityCard } from '~/components/CommunityCard';
+import { SummaryBar } from '~/components/SummaryBar';
 import { WorldMap } from '~/components/WorldMap';
 import { COMMUNITIES, COMMUNITY_STATS, NODES } from '~/utils/constants';
+import { getSummaryStats } from '~/utils/summary';
 
 // filtering to be implemented later, for now every community is visible
 const ALL_COMMUNITY_IDS = COMMUNITIES.map((community) => community.id);
+
+// The totals are fixed for now; they will follow the filters once filtering is added
+const SUMMARY = getSummaryStats(COMMUNITIES, NODES, COMMUNITY_STATS);
 
 function App() {
   const [selectedCommunityId, setSelectedCommunityId] = useState<string | null>(null);
@@ -32,15 +37,20 @@ function App() {
             />
           ))}
         </div>
-        {/* TODO: the map column is taller than the world map is wide, which leaves grey bands above
-            and below the map. Revisit the map height once the summary bar and the other
-            layout pieces are in place. */}
-        <div className="h-[480px] lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]" data-cy="map-column">
-          <WorldMap
-            nodes={NODES}
-            selectedCommunityId={selectedCommunityId}
-            visibleCommunityIds={ALL_COMMUNITY_IDS}
-          />
+        <div
+          className="flex flex-col gap-4 lg:sticky lg:top-4 lg:h-[calc(100vh-2rem)]"
+          data-cy="map-column"
+        >
+          <SummaryBar {...SUMMARY} />
+          {/* Square on small screens so the map has about the shape of the world, and it fills the
+              rest of the column on large screens */}
+          <div className="aspect-square min-h-0 lg:aspect-auto lg:flex-1">
+            <WorldMap
+              nodes={NODES}
+              selectedCommunityId={selectedCommunityId}
+              visibleCommunityIds={ALL_COMMUNITY_IDS}
+            />
+          </div>
         </div>
       </div>
     </main>
