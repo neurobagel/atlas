@@ -39,4 +39,13 @@ describe('Main user flow', () => {
       cy.get(pin(id)).should('have.attr', 'data-state', 'default');
     });
   });
+
+  it('should show the community stats on active cards instead of loading skeletons', () => {
+    cy.visit('/');
+    const card = '[data-cy="community-card-enigma-pd"]';
+
+    cy.get(`${card} [data-cy="stat-cell-subjects"]`).should('contain', '2151');
+    cy.get(`${card} [data-cy="stat-cell-datasets"]`).should('contain', '12');
+    cy.get(`${card} [data-cy$="-loading"]`).should('not.exist');
+  });
 });
