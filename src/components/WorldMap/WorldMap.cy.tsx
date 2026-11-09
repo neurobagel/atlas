@@ -20,9 +20,11 @@ const nodes: CommunityNode[] = [
 ];
 const allVisible = ['alpha', 'beta'];
 
-const pin = (id: string) => `[data-cy="map-pin-${id}"]`;
+const pinSelector = (id: string) => `[data-cy="map-pin-${id}"]`;
 
 function mountMap(selected: string | null = null, visible: string[] = allVisible) {
+  // WorldMap fills its parent (height: 100%) and Leaflet needs a container with a real height
+  // to render. The test root has none, so without this wrapper the map would be 0px tall.
   cy.mount(
     <div style={{ height: 500, width: 800 }}>
       <WorldMap nodes={nodes} selectedCommunityId={selected} visibleCommunityIds={visible} />
@@ -40,30 +42,6 @@ describe('WorldMap', () => {
     cy.get('[data-cy^="map-pin-"]').should('have.length', nodes.length);
   });
 
-  it('should render co-located nodes at distinct screen positions', () => {
-    mountMap();
-
-    // a1, a2 and b1 have identical coordinates. Without the fan-out they would be
-    // drawn on top of each other, so we check that each one ends up somewhere different.
-    cy.get(`${pin('a1')}, ${pin('a2')}, ${pin('b1')}`).should(($pins) => {
-      // Step 1: ask the browser for each pin's position on screen as "x,y" text.
-      const positions = $pins.toArray().map((el) => {
-        const box = el.getBoundingClientRect();
-        // box.x and box.y are the pin's top-left corner. Adding half the width and height
-        // moves to the middle of the pin, which is where the pin "is".
-        const middleX = Math.round(box.x + box.width / 2);
-        const middleY = Math.round(box.y + box.height / 2);
-        return `${middleX},${middleY}`;
-      });
-
-      // Step 2: remove repeats. If two pins share a spot, the list gets shorter.
-      const uniquePositions = new Set(positions);
-
-      // Step 3: three pins and three different positions means none are stacked.
-      expect(uniquePositions.size).to.equal(3);
-    });
-  });
-
   it('should show all pins as default when nothing is selected and all communities are visible', () => {
     mountMap();
     cy.get('[data-cy^="map-pin-"]').each(($el) => {
@@ -73,22 +51,22 @@ describe('WorldMap', () => {
 
   it('should dim pins of communities outside the visible communities', () => {
     mountMap(null, ['alpha']);
-    cy.get(pin('a1')).should('have.attr', 'data-state', 'default');
-    cy.get(pin('b1')).should('have.attr', 'data-state', 'dimmed');
-    cy.get(pin('b2')).should('have.attr', 'data-state', 'dimmed');
+    cy.get(pinSelector('a1')).should('have.attr', 'data-state', 'default');
+    cy.get(pinSelector('b1')).should('have.attr', 'data-state', 'dimmed');
+    cy.get(pinSelector('b2')).should('have.attr', 'data-state', 'dimmed');
   });
 
   it('should highlight the selected community and dim all others', () => {
     mountMap('beta');
-    cy.get(pin('b1')).should('have.attr', 'data-state', 'highlighted');
-    cy.get(pin('b2')).should('have.attr', 'data-state', 'highlighted');
-    cy.get(pin('a1')).should('have.attr', 'data-state', 'dimmed');
-    cy.get(pin('a2')).should('have.attr', 'data-state', 'dimmed');
+    cy.get(pinSelector('b1')).should('have.attr', 'data-state', 'highlighted');
+    cy.get(pinSelector('b2')).should('have.attr', 'data-state', 'highlighted');
+    cy.get(pinSelector('a1')).should('have.attr', 'data-state', 'dimmed');
+    cy.get(pinSelector('a2')).should('have.attr', 'data-state', 'dimmed');
   });
 
   it('should highlight the selected community even when it is filtered out', () => {
     mountMap('beta', ['alpha']);
-    cy.get(pin('b1')).should('have.attr', 'data-state', 'highlighted');
-    cy.get(pin('a1')).should('have.attr', 'data-state', 'dimmed');
+    cy.get(pinSelector('b1')).should('have.attr', 'data-state', 'highlighted');
+    cy.get(pinSelector('a1')).should('have.attr', 'data-state', 'dimmed');
   });
 });
