@@ -282,3 +282,28 @@ export const COMMUNITY_STATS: Record<string, CommunityStats> = Object.fromEntrie
     },
   ])
 );
+
+export const INTRO_TEXT =
+  'Neurobagel enables communities to make their data discoverable without giving it up. Each institution hosts its own node and keeps control of its data, while shared annotations make datasets from different sites discoverable together. The Atlas brings these communities together in one place: see where their nodes are, how much data they hold, and query each community directly.';
+
+export const GLOSSARY: { term: string; definition: string }[] = [
+  {
+    term: 'Node',
+    definition:
+      'A collection of datasets (one or more) owned, hosted, and/or made available by a research team, institution, or data provider',
+  },
+  {
+    term: 'Community',
+    definition:
+      'A collection of nodes (one or more) connected by a shared research focus, consortium, or other collaborative initiative.',
+  },
+  {
+    term: 'Active (community)',
+    definition: 'Community is currently online and accepting queries through a dedicated portal',
+  },
+  {
+    term: 'Onboarding (community)',
+    definition:
+      'A local deployment of the portal exists and has been tested with data, and a production deployment is underway but not yet available publicly.',
+  },
+];
