@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import Typography from '@mui/material/Typography';
 import { CommunityCard } from '~/components/CommunityCard';
+import { Glossary } from '~/components/Glossary';
 import { Header } from '~/components/Header';
 import { SummaryBar } from '~/components/SummaryBar';
 import { WorldMap } from '~/components/WorldMap';
-import { COMMUNITIES, COMMUNITY_STATS, NODES } from '~/utils/constants';
+import { COMMUNITIES, COMMUNITY_STATS, INTRO_TEXT, NODES } from '~/utils/constants';
 import { getSummaryStats } from '~/utils/summary';
 
 // filtering to be implemented later, for now every community is visible
@@ -19,6 +21,7 @@ const SUMMARY = getSummaryStats(COMMUNITIES, NODES, COMMUNITY_STATS);
 //   desktop 1024px and up: two columns (lg:), with a sticky map column next to the cards
 function App() {
   const [selectedCommunityId, setSelectedCommunityId] = useState<string | null>(null);
+  const [glossaryOpen, setGlossaryOpen] = useState(false);
 
   // Clicking the selected card again clears the selection
   const handleSelect = (communityId: string) =>
@@ -26,8 +29,12 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header onOpenGlossary={() => setGlossaryOpen(true)} />
+      <Glossary open={glossaryOpen} onClose={() => setGlossaryOpen(false)} />
       <main className="mx-auto max-w-screen-2xl p-4">
+        <Typography className="mb-4" data-cy="intro">
+          {INTRO_TEXT}
+        </Typography>
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[24rem_1fr]">
           <div className="flex flex-col gap-4" data-cy="community-list">
             {COMMUNITIES.map((community) => (
