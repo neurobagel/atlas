@@ -83,4 +83,25 @@ describe('Main user flow', () => {
       expect($header[0].getBoundingClientRect().top).to.equal(0);
     });
   });
+
+  it('should show the intro text under the header', () => {
+    cy.visit('/');
+
+    cy.get('[data-cy="intro"]')
+      .should('be.visible')
+      .and('contain', 'Neurobagel enables communities');
+  });
+
+  it('should open the glossary from the header and close it again', () => {
+    cy.visit('/');
+
+    cy.get('[data-cy="header-glossary"]').click();
+    cy.get('[data-cy="glossary"]').should('be.visible');
+    ['node', 'community', 'active-community', 'onboarding-community'].forEach((slug) => {
+      cy.get(`[data-cy="glossary-term-${slug}"]`).should('be.visible');
+    });
+
+    cy.get('[data-cy="glossary-close"]').click();
+    cy.get('[data-cy="glossary"]').should('not.exist');
+  });
 });
