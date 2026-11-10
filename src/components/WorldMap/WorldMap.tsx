@@ -24,8 +24,7 @@ const TILE_EDGES = L.latLngBounds([-85.05, -180], [85.05, 180]);
 const PIN_SIZE = { default: 12, highlighted: 15, dimmed: 12 } satisfies Record<PinState, number>;
 
 // Preflight is off, so the border style has to be set explicitly
-const PIN_CLASSES =
-  'box-border rounded-full border-2 border-solid border-white shadow-[0_1px_3px_rgba(0,0,0,0.4)] data-[state=dimmed]:opacity-30';
+const PIN_CLASSES = 'box-border rounded-full border-2 border-solid border-white shadow-md';
 
 interface WorldMapProps {
   nodes: CommunityNode[];
@@ -43,11 +42,12 @@ export function WorldMap({ nodes, selectedCommunityId, visibleCommunityIds }: Wo
     // the rest is Tailwind. Leaflet needs the icon as an HTML string, so React props can't be used.
     const background = state === 'dimmed' ? theme.palette.grey[700] : theme.palette.primary.main;
     const style = `width:${size}px;height:${size}px;background:${background}`;
+    const opacity = state === 'dimmed' ? 'opacity-30' : 'opacity-100';
     return L.divIcon({
       // divIcon adds the class "leaflet-div-icon" by default, which gives every marker a white
       // background and a grey border. An empty className drops it, so only our pin styles apply.
       className: '',
-      html: `<div data-cy="map-pin-${node.id}" data-state="${state}" class="${PIN_CLASSES}" style="${style}"></div>`,
+      html: `<div data-cy="map-pin-${node.id}" data-state="${state}" class="${PIN_CLASSES} ${opacity}" style="${style}"></div>`,
       iconSize: [size, size],
       // Shifting the anchor moves the pin by a fixed number of pixels at any zoom level
       iconAnchor: getPinAnchor(size, offsets[node.id]),

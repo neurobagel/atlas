@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Tailwind's preflight is off (see tailwind.config.js), so the browser's default 8px body margin
+   has to be reset here. Otherwise the page is offset by 8px and the sticky header jumps when
+   scrolling. */
+body {
+  margin: 0;
+}
