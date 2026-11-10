@@ -12,6 +12,11 @@ const ALL_COMMUNITY_IDS = COMMUNITIES.map((community) => community.id);
 // The totals are fixed for now; they will follow the filters once filtering is added
 const SUMMARY = getSummaryStats(COMMUNITIES, NODES, COMMUNITY_STATS);
 
+// Supported screen sizes: from 375px (the smallest phones) up to 1920px, where the content stops
+// growing and is centred (max-w-[120rem]). The breakpoints are Tailwind's defaults.
+//   mobile  375px and up:  single column, with the summary bar and a square map under the cards
+//                          (the summary bar is 2x2 here, and one row from sm: 640px)
+//   desktop 1024px and up: two columns (lg:), with a sticky map column next to the cards
 function App() {
   const [selectedCommunityId, setSelectedCommunityId] = useState<string | null>(null);
 
