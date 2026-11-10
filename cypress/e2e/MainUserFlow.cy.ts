@@ -73,4 +73,14 @@ describe('Main user flow', () => {
       expect($header[0].getBoundingClientRect().top).to.equal(0);
     });
   });
+
+  it('should not offset the page with the browser default body margin', () => {
+    cy.visit('/');
+
+    cy.get('body').should('have.css', 'margin', '0px');
+    // Without the reset the header would start 8px down and jump to 0 when scrolling
+    cy.get('[data-cy="header"]').then(($header) => {
+      expect($header[0].getBoundingClientRect().top).to.equal(0);
+    });
+  });
 });
