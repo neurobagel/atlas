@@ -48,4 +48,13 @@ describe('Main user flow', () => {
     cy.get(`${card} [data-cy="stat-cell-datasets"]`).should('contain', '12');
     cy.get(`${card} [data-cy$="-loading"]`).should('not.exist');
   });
+
+  it('should show the network totals in the summary bar', () => {
+    cy.visit('/');
+
+    cy.get('[data-cy="summary-subjects"]').should('have.text', '121,409');
+    cy.get('[data-cy="summary-nodes"]').should('have.text', '16');
+    cy.get('[data-cy="summary-communities"]').should('have.text', '11');
+    cy.get('[data-cy="summary-countries"]').should('have.text', '7');
+  });
 });
