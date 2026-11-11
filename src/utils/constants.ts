@@ -284,7 +284,17 @@ export const COMMUNITY_STATS: Record<string, CommunityStats> = Object.fromEntrie
 );
 
 export const INTRO_TEXT =
-  'Neurobagel enables neuroscience research communities to make their data discoverable without directly sharing or uploading data to a central place. Within a community, each data site hosts their own local node and keeps control of their data, while standardized annotations allow data from different sites to be queried together. The Neurobagel Atlas offers an overview of these communities in one place: see where member nodes are, how much data they hold, and easily access each community's portal to search available data at the subject level.';
+  'Neurobagel enables neuroscience research communities ' +
+  'to make their data discoverable without directly sharing or uploading data to a central place. ' +
+  'Within a community, ' +
+  'each data site hosts their own local node and ' +
+  'keeps control of their data, ' +
+  'while standardized annotations allow data from different sites ' +
+  'to be queried together. ' +
+  'The Neurobagel Atlas offers an overview of these communities in one place: ' +
+  'see where member nodes are, ' +
+  'how much data they hold, ' +
+  "and easily access each community's portal to search available data at the subject level.";
 
 export const GLOSSARY: { term: string; definition: string }[] = [
   {
