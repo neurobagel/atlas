@@ -300,12 +300,26 @@ export const GLOSSARY: { term: string; definition: string }[] = [
   {
     term: 'Node',
     definition:
-      'A collection of datasets (one or more) owned, hosted, and/or made available by a research team, institution, or data provider',
+      'A collection of datasets (one or more) owned, hosted, ' +
+      'and/or made available by a research team, institution, or data provider',
   },
   {
     term: 'Community',
     definition:
-      'A collection of nodes (one or more) connected by a shared research focus, consortium, or other collaborative initiative.',
+      'A collection of nodes (one or more) connected by ' +
+      'a shared research focus, consortium, or other collaborative initiative.',
+  },
+  {
+    term: 'Site',
+    definition:
+      'A geographical location or place where data originate, are held, and/or are managed',
+  },
+  {
+    term: 'Portal',
+    definition:
+      'A a graphical interface for running and viewing results ' +
+      'of federated queries to one or more specified nodes, ' +
+      'which may be hosted on separate servers/different locations',
   },
   {
     term: 'Active (community)',
@@ -314,6 +328,8 @@ export const GLOSSARY: { term: string; definition: string }[] = [
   {
     term: 'Onboarding (community)',
     definition:
-      'A local deployment of the portal exists and has been tested with data, and a production deployment is underway but not yet available publicly.',
+      'A local deployment of the portal exists and ' +
+      'has been tested with data, ' +
+      'and a production deployment is underway but not yet available publicly.',
   },
 ];
