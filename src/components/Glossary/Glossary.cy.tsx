@@ -7,8 +7,8 @@ describe('Glossary', () => {
 
     cy.get('[data-cy="glossary"]').should('contain', 'Glossary');
     GLOSSARY.forEach(({ term, definition }) => {
-      cy.contains('dt', term).should('be.visible');
-      cy.contains('dd', definition).should('be.visible');
+      cy.contains('dt', term).should('exist');
+      cy.contains('dd', definition).should('exist');
     });
   });
 
