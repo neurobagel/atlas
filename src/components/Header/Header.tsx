@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import logo from '~/assets/logos/neurobagel.png';
 
 const CONNECT_URL =
@@ -70,7 +70,7 @@ export function Header({ onOpenGlossary }: HeaderProps) {
                 href="https://neurobagel.org"
                 dataCy="header-about"
               >
-                <MenuBookIcon />
+                <HomeRoundedIcon />
               </HeaderLink>
               <HeaderLink
                 label="GitHub"
