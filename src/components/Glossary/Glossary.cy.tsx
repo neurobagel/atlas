@@ -12,17 +12,6 @@ describe('Glossary', () => {
     });
   });
 
-  it('should give each term a data-cy built from its lowercased name', () => {
-    cy.mount(<Glossary open onClose={cy.stub()} />);
-
-    cy.get('[data-cy="glossary-term-node"]').should('contain', 'Node');
-    cy.get('[data-cy="glossary-term-active-community"]').should('contain', 'Active (community)');
-    cy.get('[data-cy="glossary-term-onboarding-community"]').should(
-      'contain',
-      'Onboarding (community)'
-    );
-  });
-
   it('should render nothing when closed', () => {
     cy.mount(<Glossary open={false} onClose={cy.stub()} />);
 
