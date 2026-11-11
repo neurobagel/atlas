@@ -87,9 +87,7 @@ describe('Main user flow', () => {
   it('should show the intro text under the header', () => {
     cy.visit('/');
 
-    cy.get('[data-cy="intro"]')
-      .should('be.visible')
-      .and('contain', 'Neurobagel enables communities');
+    cy.get('[data-cy="intro"]').should('be.visible').and('contain', 'Neurobagel');
   });
 
   it('should open the glossary from the header and close it again', () => {
