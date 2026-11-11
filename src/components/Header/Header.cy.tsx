@@ -2,7 +2,7 @@ import { Header } from '~/components/Header';
 
 describe('Header', () => {
   beforeEach(() => {
-    cy.mount(<Header />);
+    cy.mount(<Header onOpenGlossary={cy.stub().as('onOpenGlossary')} />);
   });
 
   it('should render the logo, the title as an h1 and the tagline', () => {
@@ -30,5 +30,10 @@ describe('Header', () => {
         .and('have.attr', 'rel', 'noopener noreferrer')
         .and('have.attr', 'aria-label', label);
     });
+  });
+
+  it('should call onOpenGlossary when the Glossary button is clicked', () => {
+    cy.get('[data-cy="header-glossary"]').should('have.attr', 'aria-label', 'Glossary').click();
+    cy.get('@onOpenGlossary').should('have.been.calledOnce');
   });
 });

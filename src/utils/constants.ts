@@ -282,3 +282,54 @@ export const COMMUNITY_STATS: Record<string, CommunityStats> = Object.fromEntrie
     },
   ])
 );
+
+export const INTRO_TEXT =
+  'Neurobagel enables neuroscience research communities ' +
+  'to make their data discoverable without directly sharing or uploading data to a central place. ' +
+  'Within a community, ' +
+  'each data site hosts their own local node and ' +
+  'keeps control of their data, ' +
+  'while standardized annotations allow data from different sites ' +
+  'to be queried together. ' +
+  'The Neurobagel Atlas offers an overview of these communities in one place: ' +
+  'see where member nodes are, ' +
+  'how much data they hold, ' +
+  "and easily access each community's portal to search available data at the subject level.";
+
+export const GLOSSARY: { term: string; definition: string }[] = [
+  {
+    term: 'Node',
+    definition:
+      'A collection of datasets (one or more) owned, hosted, ' +
+      'and/or made available by a research team, institution, or data provider',
+  },
+  {
+    term: 'Community',
+    definition:
+      'A collection of nodes (one or more) connected by ' +
+      'a shared research focus, consortium, or other collaborative initiative.',
+  },
+  {
+    term: 'Site',
+    definition:
+      'A geographical location or place where data originate, are held, and/or are managed',
+  },
+  {
+    term: 'Portal',
+    definition:
+      'A a graphical interface for running and viewing results ' +
+      'of federated queries to one or more specified nodes, ' +
+      'which may be hosted on separate servers/different locations',
+  },
+  {
+    term: 'Active (community)',
+    definition: 'Community is currently online and accepting queries through a dedicated portal',
+  },
+  {
+    term: 'Onboarding (community)',
+    definition:
+      'A local deployment of the portal exists and ' +
+      'has been tested with data, ' +
+      'and a production deployment is underway but not yet available publicly.',
+  },
+];
