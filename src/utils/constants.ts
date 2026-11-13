@@ -1,6 +1,8 @@
 import asmqLogo from '~/assets/logos/asmq.png';
+import eegManyLabsLogo from '~/assets/logos/eegmanylabs.png';
 import enigmaLogo from '~/assets/logos/enigma.png';
 import enigmaAddictionLogo from '~/assets/logos/enigma-addiction.png';
+import enigmaPDLogo from '~/assets/logos/enigma-pd.png';
 import neurobagelLogo from '~/assets/logos/neurobagel.png';
 import nichyLogo from '~/assets/logos/nichy.png';
 import parkinsonNLLogo from '~/assets/logos/parkinson-nl.svg';
@@ -20,8 +22,9 @@ export const COMMUNITIES: Community[] = [
   {
     id: 'enigma-pd',
     name: 'ENIGMA-PD',
+    fullName: "ENIGMA Parkinson's Disease",
     status: 'active',
-    logoUrl: enigmaLogo,
+    logoUrl: enigmaPDLogo,
     contact: { name: 'Ysbrand van der Werf' },
     queryToolUrl: 'https://enigma.neurobagel.org/?node=All',
     federationApiUrl: 'https://enigma.neurobagel.org/federate/',
@@ -101,10 +104,18 @@ export const COMMUNITIES: Community[] = [
   {
     id: 'nichy',
     name: 'NICHY',
-    fullName: 'NeuroImaging Consortium in Central Disorders of Hypersomnolence (Nichy)',
+    fullName: 'NeuroImaging Consortium in Central Disorders of Hypersomnolence',
     status: 'onboarding',
     logoUrl: nichyLogo,
     contact: { name: 'Ysbrand van der Werf' },
+    // TODO(confirm): projectedStats
+  },
+  {
+    id: 'eegmanylabs',
+    name: 'EEGManyLabs',
+    status: 'onboarding',
+    logoUrl: eegManyLabsLogo,
+    contact: { name: 'Dominik Welke' },
     // TODO(confirm): projectedStats
   },
 ];
