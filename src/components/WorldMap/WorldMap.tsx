@@ -3,9 +3,10 @@ import L from 'leaflet';
 import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 import { useTheme } from '@mui/material/styles';
 import 'leaflet/dist/leaflet.css';
+import { ONBOARDING_COLOR } from '~/utils/constants';
 import { getPinAnchor, getPinOffsets, getPinState } from '~/utils/map';
 import type { PinState } from '~/utils/map';
-import type { CommunityNode } from '~/utils/types';
+import type { CommunityNode, CommunityStatus } from '~/utils/types';
 
 const TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
 const TILE_ATTRIBUTION =
@@ -28,11 +29,17 @@ const PIN_CLASSES = 'box-border rounded-full border-2 border-solid border-white 
 
 interface WorldMapProps {
   nodes: CommunityNode[];
+  communityStatuses: Record<string, CommunityStatus>;
   selectedCommunityId: string | null;
   visibleCommunityIds: string[];
 }
 
-export function WorldMap({ nodes, selectedCommunityId, visibleCommunityIds }: WorldMapProps) {
+export function WorldMap({
+  nodes,
+  communityStatuses,
+  selectedCommunityId,
+  visibleCommunityIds,
+}: WorldMapProps) {
   const theme = useTheme();
   const offsets = useMemo(() => getPinOffsets(nodes), [nodes]);
 
@@ -40,7 +47,14 @@ export function WorldMap({ nodes, selectedCommunityId, visibleCommunityIds }: Wo
     const size = PIN_SIZE[state];
     // Only the values that depend on the state or the MUI theme are inline;
     // the rest is Tailwind. Leaflet needs the icon as an HTML string, so React props can't be used.
-    const background = state === 'dimmed' ? theme.palette.grey[700] : theme.palette.primary.main;
+    const background =
+      state === 'dimmed'
+        ? theme.palette.grey[700]
+        : state === 'highlighted'
+          ? theme.palette.primary.main
+          : communityStatuses[node.communityId] === 'active'
+            ? theme.palette.success.main
+            : ONBOARDING_COLOR;
     const style = `width:${size}px;height:${size}px;background:${background}`;
     const opacity = state === 'dimmed' ? 'opacity-30' : 'opacity-100';
     return L.divIcon({

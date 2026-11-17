@@ -10,6 +10,8 @@ import scandLogo from '~/assets/logos/scand.jpg';
 import trr379Logo from '~/assets/logos/trr379.png';
 import type { Community, CommunityNode, CommunityStats } from './types';
 
+export const ONBOARDING_COLOR = '#FACC15';
+
 export const COMMUNITIES: Community[] = [
   {
     id: 'neurobagel',
@@ -120,7 +122,7 @@ export const COMMUNITIES: Community[] = [
   },
 ];
 
-// Only active communities have known nodes. Coordinates are city-level.
+// Node locations are city-level.
 export const NODES: CommunityNode[] = [
   {
     id: 'openneuro',
@@ -195,6 +197,15 @@ export const NODES: CommunityNode[] = [
     lng: -73.5673,
   },
   {
+    id: 'nemar',
+    name: 'NEMAR',
+    communityId: 'neurobagel',
+    city: 'San Diego',
+    country: 'USA',
+    lat: 32.7157,
+    lng: -117.1611,
+  },
+  {
     id: 'amsterdam-umc',
     name: 'Amsterdam UMC',
     communityId: 'enigma-pd',
@@ -266,6 +277,69 @@ export const NODES: CommunityNode[] = [
     country: 'Netherlands',
     lat: 51.8126,
     lng: 5.8372,
+  },
+  {
+    id: 'neuro-ad',
+    name: 'NEURO-AD',
+    communityId: 'neuro-ad',
+    city: 'Brisbane',
+    country: 'Australia',
+    lat: -27.4698,
+    lng: 153.0251,
+  },
+  {
+    id: 'mnd-network',
+    name: 'MND Network',
+    communityId: 'mnd-network',
+    city: 'Sydney',
+    country: 'Australia',
+    lat: -33.8688,
+    lng: 151.2093,
+  },
+  {
+    id: 'trr379',
+    name: 'TRR379',
+    communityId: 'trr379',
+    city: 'Duesseldorf',
+    country: 'Germany',
+    lat: 51.2277,
+    lng: 6.7735,
+  },
+  {
+    id: 'enigma-tremor',
+    name: 'ENIGMA-Tremor',
+    communityId: 'enigma-tremor',
+    city: 'Amsterdam',
+    country: 'Netherlands',
+    lat: 52.3676,
+    lng: 4.9041,
+  },
+  {
+    id: 'enigma-addiction',
+    name: 'ENIGMA-AD',
+    communityId: 'enigma-addiction',
+    city: 'Burlington',
+    country: 'USA',
+    lat: 44.4759,
+    lng: -73.2121,
+  },
+  {
+    id: 'nichy',
+    name: 'NICHY',
+    communityId: 'nichy',
+    city: 'Amsterdam',
+    country: 'Netherlands',
+    lat: 52.3676,
+    lng: 4.9041,
+  },
+  {
+    id: 'eegmanylabs',
+    name: 'EEGManyLabs',
+    communityId: 'eegmanylabs',
+    city: 'Leeds',
+    country: 'UK',
+    lat: 53.8008,
+    lng: -1.5491,
   },
 ];
 

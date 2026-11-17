@@ -19,6 +19,7 @@ const nodes: CommunityNode[] = [
   node('b2', 'beta', 52.4, 4.9),
 ];
 const allVisible = ['alpha', 'beta'];
+const communityStatuses = { alpha: 'active', beta: 'onboarding' } as const;
 
 const pinSelector = (id: string) => `[data-cy="map-pin-${id}"]`;
 
@@ -27,7 +28,12 @@ function mountMap(selected: string | null = null, visible: string[] = allVisible
   // to render. The test root has none, so without this wrapper the map would be 0px tall.
   cy.mount(
     <div style={{ height: 500, width: 800 }}>
-      <WorldMap nodes={nodes} selectedCommunityId={selected} visibleCommunityIds={visible} />
+      <WorldMap
+        nodes={nodes}
+        communityStatuses={communityStatuses}
+        selectedCommunityId={selected}
+        visibleCommunityIds={visible}
+      />
     </div>
   );
 }
@@ -47,6 +53,12 @@ describe('WorldMap', () => {
     cy.get('[data-cy^="map-pin-"]').each(($el) => {
       expect($el).to.have.attr('data-state', 'default');
     });
+  });
+
+  it('should color default pins to match their community status', () => {
+    mountMap();
+    cy.get(pinSelector('a1')).should('have.css', 'background-color', 'rgb(46, 125, 50)');
+    cy.get(pinSelector('b1')).should('have.css', 'background-color', 'rgb(250, 204, 21)');
   });
 
   it('should dim pins of communities outside the visible communities', () => {
