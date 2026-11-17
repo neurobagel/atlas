@@ -40,6 +40,27 @@ describe('Main user flow', () => {
     });
   });
 
+  it('should render pins for onboarding communities and highlight them when selected', () => {
+    cy.visit('/');
+    const pin = (id: string) => `[data-cy="map-pin-${id}"]`;
+
+    [
+      'neuro-ad',
+      'mnd-network',
+      'trr379',
+      'enigma-tremor',
+      'enigma-addiction',
+      'nichy',
+      'eegmanylabs',
+      'nemar',
+    ].forEach((id) => cy.get(pin(id)).should('exist'));
+    cy.get('[data-cy="community-card-neuro-ad"]').click();
+    cy.get(pin('neuro-ad')).should('have.attr', 'data-state', 'highlighted');
+    cy.get(pin('mnd-network')).should('have.attr', 'data-state', 'dimmed');
+    cy.get('[data-cy="community-card-neuro-ad"]').click();
+    cy.get(pin('neuro-ad')).should('have.attr', 'data-state', 'default');
+  });
+
   it('should show the community stats on active cards instead of loading skeletons', () => {
     cy.visit('/');
     const card = '[data-cy="community-card-enigma-pd"]';
@@ -53,9 +74,9 @@ describe('Main user flow', () => {
     cy.visit('/');
 
     cy.get('[data-cy="summary-subjects"]').should('have.text', '121,409');
-    cy.get('[data-cy="summary-nodes"]').should('have.text', '16');
+    cy.get('[data-cy="summary-nodes"]').should('have.text', '24');
     cy.get('[data-cy="summary-communities"]').should('have.text', '12');
-    cy.get('[data-cy="summary-countries"]').should('have.text', '7');
+    cy.get('[data-cy="summary-countries"]').should('have.text', '10');
   });
 
   it('should keep the header at the top of the viewport while scrolling', () => {
