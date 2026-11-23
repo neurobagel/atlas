@@ -74,9 +74,9 @@ describe('Main user flow', () => {
     cy.visit('/');
 
     cy.get('[data-cy="summary-subjects"]').should('have.text', '121,409');
-    cy.get('[data-cy="summary-nodes"]').should('have.text', '24');
+    cy.get('[data-cy="summary-nodes"]').should('have.text', '17');
     cy.get('[data-cy="summary-communities"]').should('have.text', '12');
-    cy.get('[data-cy="summary-countries"]').should('have.text', '10');
+    cy.get('[data-cy="summary-countries"]').should('have.text', '7');
   });
 
   it('should keep the header at the top of the viewport while scrolling', () => {
