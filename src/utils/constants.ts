@@ -67,6 +67,12 @@ export const COMMUNITIES: Community[] = [
     fullName: "NEURO Alzheimer's Disease",
     status: 'onboarding',
     contact: { name: 'Baptiste Couvy-Duchesne' },
+    onboardingSite: {
+      city: 'Brisbane',
+      country: 'Australia',
+      lat: -27.4698,
+      lng: 153.0251,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -75,6 +81,12 @@ export const COMMUNITIES: Community[] = [
     fullName: 'Motor Neuron Disease Network',
     status: 'onboarding',
     contact: { name: 'Sicong Tu' },
+    onboardingSite: {
+      city: 'Sydney',
+      country: 'Australia',
+      lat: -33.8688,
+      lng: 151.2093,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -84,6 +96,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: trr379Logo,
     contact: { name: 'Michael Hanke' },
+    onboardingSite: {
+      city: 'Duesseldorf',
+      country: 'Germany',
+      lat: 51.2277,
+      lng: 6.7735,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -92,6 +110,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: enigmaLogo,
     contact: { name: 'Max Laansma' },
+    onboardingSite: {
+      city: 'Amsterdam',
+      country: 'Netherlands',
+      lat: 52.3676,
+      lng: 4.9041,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -101,6 +125,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: enigmaAddictionLogo,
     contact: { name: 'Anthony Juliano' },
+    onboardingSite: {
+      city: 'Burlington',
+      country: 'USA',
+      lat: 44.4759,
+      lng: -73.2121,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -110,6 +140,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: nichyLogo,
     contact: { name: 'Ysbrand van der Werf' },
+    onboardingSite: {
+      city: 'Amsterdam',
+      country: 'Netherlands',
+      lat: 52.3676,
+      lng: 4.9041,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -118,11 +154,17 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: eegManyLabsLogo,
     contact: { name: 'Dominik Welke' },
+    onboardingSite: {
+      city: 'Leeds',
+      country: 'UK',
+      lat: 53.8008,
+      lng: -1.5491,
+    },
     // TODO(confirm): projectedStats
   },
 ];
 
-// Node locations are city-level.
+// Only active communities have known nodes. Coordinates are city-level.
 export const NODES: CommunityNode[] = [
   {
     id: 'openneuro',
@@ -277,69 +319,6 @@ export const NODES: CommunityNode[] = [
     country: 'Netherlands',
     lat: 51.8126,
     lng: 5.8372,
-  },
-  {
-    id: 'neuro-ad',
-    name: 'NEURO-AD',
-    communityId: 'neuro-ad',
-    city: 'Brisbane',
-    country: 'Australia',
-    lat: -27.4698,
-    lng: 153.0251,
-  },
-  {
-    id: 'mnd-network',
-    name: 'MND Network',
-    communityId: 'mnd-network',
-    city: 'Sydney',
-    country: 'Australia',
-    lat: -33.8688,
-    lng: 151.2093,
-  },
-  {
-    id: 'trr379',
-    name: 'TRR379',
-    communityId: 'trr379',
-    city: 'Duesseldorf',
-    country: 'Germany',
-    lat: 51.2277,
-    lng: 6.7735,
-  },
-  {
-    id: 'enigma-tremor',
-    name: 'ENIGMA-Tremor',
-    communityId: 'enigma-tremor',
-    city: 'Amsterdam',
-    country: 'Netherlands',
-    lat: 52.3676,
-    lng: 4.9041,
-  },
-  {
-    id: 'enigma-addiction',
-    name: 'ENIGMA-AD',
-    communityId: 'enigma-addiction',
-    city: 'Burlington',
-    country: 'USA',
-    lat: 44.4759,
-    lng: -73.2121,
-  },
-  {
-    id: 'nichy',
-    name: 'NICHY',
-    communityId: 'nichy',
-    city: 'Amsterdam',
-    country: 'Netherlands',
-    lat: 52.3676,
-    lng: 4.9041,
-  },
-  {
-    id: 'eegmanylabs',
-    name: 'EEGManyLabs',
-    communityId: 'eegmanylabs',
-    city: 'Leeds',
-    country: 'UK',
-    lat: 53.8008,
-    lng: -1.5491,
   },
 ];
 

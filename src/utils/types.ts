@@ -20,9 +20,19 @@ export interface ActiveCommunity extends BaseCommunity {
   federationApiUrl: string;
 }
 
+// Where an onboarding community is setting up its first node. It is not a live node yet, so it
+// is kept apart from the nodes.
+export interface OnboardingSite {
+  city: string;
+  country: string;
+  lat: number;
+  lng: number;
+}
+
 export interface OnboardingCommunity extends BaseCommunity {
   status: 'onboarding';
   projectedStats?: string;
+  onboardingSite?: OnboardingSite;
 }
 
 export type Community = ActiveCommunity | OnboardingCommunity;
