@@ -135,6 +135,11 @@ export function CommunityCard({
               {community.contact.role && ` (${community.contact.role})`}
             </Typography>
           )}
+          {community.status === 'onboarding' && community.onboardingSite && (
+            <Typography variant="body2" data-cy={`community-card-${community.id}-onboarding-site`}>
+              Onboarding site: {community.onboardingSite.city}, {community.onboardingSite.country}
+            </Typography>
+          )}
 
           <div className="mt-3">
             {community.status === 'active' ? (
