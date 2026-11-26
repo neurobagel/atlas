@@ -138,6 +138,24 @@ describe('CommunityCard', () => {
       cy.get('[data-cy="community-card-test-onboarding-toggle"]').should('not.exist');
     });
 
+    it('should show the onboarding site under the contact when there is one', () => {
+      cy.mount(
+        <CommunityCard
+          community={{
+            ...onboardingCommunity,
+            onboardingSite: { city: 'Leeds', country: 'UK', lat: 53.8008, lng: -1.5491 },
+          }}
+          nodes={[]}
+          isSelected={false}
+          onSelect={cy.spy()}
+        />
+      );
+      cy.get('[data-cy="community-card-test-onboarding-onboarding-site"]').should(
+        'have.text',
+        'Onboarding site: Leeds, UK'
+      );
+    });
+
     it('should show a fallback when projected stats are unknown', () => {
       const { projectedStats: _, ...withoutProjectedStats } = onboardingCommunity;
       cy.mount(

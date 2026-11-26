@@ -10,6 +10,8 @@ import scandLogo from '~/assets/logos/scand.jpg';
 import trr379Logo from '~/assets/logos/trr379.png';
 import type { Community, CommunityNode, CommunityStats } from './types';
 
+export const ONBOARDING_COLOR = '#FACC15';
+
 export const COMMUNITIES: Community[] = [
   {
     id: 'neurobagel',
@@ -65,6 +67,12 @@ export const COMMUNITIES: Community[] = [
     fullName: "NEURO Alzheimer's Disease",
     status: 'onboarding',
     contact: { name: 'Baptiste Couvy-Duchesne' },
+    onboardingSite: {
+      city: 'Brisbane',
+      country: 'Australia',
+      lat: -27.4698,
+      lng: 153.0251,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -73,6 +81,12 @@ export const COMMUNITIES: Community[] = [
     fullName: 'Motor Neuron Disease Network',
     status: 'onboarding',
     contact: { name: 'Sicong Tu' },
+    onboardingSite: {
+      city: 'Sydney',
+      country: 'Australia',
+      lat: -33.8688,
+      lng: 151.2093,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -82,6 +96,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: trr379Logo,
     contact: { name: 'Michael Hanke' },
+    onboardingSite: {
+      city: 'Duesseldorf',
+      country: 'Germany',
+      lat: 51.2277,
+      lng: 6.7735,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -90,6 +110,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: enigmaLogo,
     contact: { name: 'Max Laansma' },
+    onboardingSite: {
+      city: 'Amsterdam',
+      country: 'Netherlands',
+      lat: 52.3676,
+      lng: 4.9041,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -99,6 +125,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: enigmaAddictionLogo,
     contact: { name: 'Anthony Juliano' },
+    onboardingSite: {
+      city: 'Burlington',
+      country: 'USA',
+      lat: 44.4759,
+      lng: -73.2121,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -108,6 +140,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: nichyLogo,
     contact: { name: 'Ysbrand van der Werf' },
+    onboardingSite: {
+      city: 'Amsterdam',
+      country: 'Netherlands',
+      lat: 52.3676,
+      lng: 4.9041,
+    },
     // TODO(confirm): projectedStats
   },
   {
@@ -116,6 +154,12 @@ export const COMMUNITIES: Community[] = [
     status: 'onboarding',
     logoUrl: eegManyLabsLogo,
     contact: { name: 'Dominik Welke' },
+    onboardingSite: {
+      city: 'Leeds',
+      country: 'UK',
+      lat: 53.8008,
+      lng: -1.5491,
+    },
     // TODO(confirm): projectedStats
   },
 ];
@@ -193,6 +237,15 @@ export const NODES: CommunityNode[] = [
     country: 'Canada',
     lat: 45.5017,
     lng: -73.5673,
+  },
+  {
+    id: 'nemar',
+    name: 'NEMAR',
+    communityId: 'neurobagel',
+    city: 'San Diego',
+    country: 'USA',
+    lat: 32.7157,
+    lng: -117.1611,
   },
   {
     id: 'amsterdam-umc',

@@ -6,10 +6,30 @@ import { IntroBanner } from '~/components/IntroBanner';
 import { SummaryBar } from '~/components/SummaryBar';
 import { WorldMap } from '~/components/WorldMap';
 import { COMMUNITIES, COMMUNITY_STATS, INTRO_TEXT, NODES } from '~/utils/constants';
+import type { CommunityNode, CommunityStatus } from '~/utils/types';
 import { getSummaryStats } from '~/utils/summary';
 
 // filtering to be implemented later, for now every community is visible
 const ALL_COMMUNITY_IDS = COMMUNITIES.map((community) => community.id);
+const COMMUNITY_STATUSES: Record<string, CommunityStatus> = Object.fromEntries(
+  COMMUNITIES.map(({ id, status }) => [id, status])
+);
+
+// The map shows one pin per onboarding site as well as one per node. The sites are not nodes, so
+// they are only added here and stay out of the cards and the summary totals.
+const ONBOARDING_SITES: CommunityNode[] = COMMUNITIES.flatMap((community) =>
+  community.status === 'onboarding' && community.onboardingSite
+    ? [
+        {
+          id: community.id,
+          name: community.name,
+          communityId: community.id,
+          ...community.onboardingSite,
+        },
+      ]
+    : []
+);
+const MAP_NODES = [...NODES, ...ONBOARDING_SITES];
 
 // The totals are fixed for now; they will follow the filters once filtering is added
 const SUMMARY = getSummaryStats(COMMUNITIES, NODES, COMMUNITY_STATS);
@@ -58,7 +78,8 @@ function App() {
               up to 1000) below the header. */}
             <div className="isolate aspect-square min-h-0 lg:aspect-auto lg:flex-1">
               <WorldMap
-                nodes={NODES}
+                nodes={MAP_NODES}
+                communityStatuses={COMMUNITY_STATUSES}
                 selectedCommunityId={selectedCommunityId}
                 visibleCommunityIds={ALL_COMMUNITY_IDS}
               />

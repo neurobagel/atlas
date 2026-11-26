@@ -10,6 +10,7 @@ import { alpha } from '@mui/material/styles';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { ONBOARDING_COLOR } from '~/utils/constants';
 import type { Community, CommunityNode, CommunityStats } from '~/utils/types';
 import { StatCell } from './StatCell';
 
@@ -81,7 +82,7 @@ export function CommunityCard({
           size="small"
           label={isActive ? 'Active' : 'Onboarding'}
           color={isActive ? 'success' : undefined}
-          sx={isActive ? undefined : { bgcolor: '#FACC15', color: 'rgba(0, 0, 0, 0.87)' }}
+          sx={isActive ? undefined : { bgcolor: ONBOARDING_COLOR, color: 'rgba(0, 0, 0, 0.87)' }}
           data-cy={`community-card-${community.id}-status`}
         />
         {nodes.length > 0 && (
@@ -132,6 +133,11 @@ export function CommunityCard({
             <Typography variant="body2" data-cy={`community-card-${community.id}-contact`}>
               Contact: {community.contact.name}
               {community.contact.role && ` (${community.contact.role})`}
+            </Typography>
+          )}
+          {community.status === 'onboarding' && community.onboardingSite && (
+            <Typography variant="body2" data-cy={`community-card-${community.id}-onboarding-site`}>
+              Onboarding site: {community.onboardingSite.city}, {community.onboardingSite.country}
             </Typography>
           )}
 
